@@ -1,16 +1,19 @@
+
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
 #include <stdlib.h>
 
 int repalce_blank(char *src);
+void my_print(char *str);
 
 int main(int argc, char const *argv[])
 {
-    char str[] = "    12 34  45 67 78 qwe 12 131      ";
+    char str[] = "";
 
     repalce_blank(str);
     printf("str =%s\n", str);
+    my_print(str);
 
     return 0;
 }
@@ -18,8 +21,22 @@ int main(int argc, char const *argv[])
 void my_print(char *str)
 {
     int i = 0;
+    int len = strlen(str);
 
+    for (i = 0; i < strlen(str); i++)
+    {
+        if (str[i] == ' ')
+        {
+            str[i] = '.';
+        }
+
+        putchar(str[i]);
+    }
+    
+    putchar('\n');
 }
+
+/* 删除字符串中多余的空格，使不会出现连续的空格 */
 int repalce_blank(char src[])
 {
     char needDel = 0;
@@ -47,15 +64,8 @@ int repalce_blank(char src[])
             continue;
         }
 
-        if (!needDel)
-        {
-           pSlow++; 
-        }
-
-        if (*(pQuick+1) == ' ')
-        {
-            needDel = 1;
-        }
+        if (!needDel) pSlow++; 
+        if (*(pQuick+1) == ' ') needDel = 1;
 
         pQuick++;
     }
