@@ -7,15 +7,20 @@ int repalce_blank(char *src);
 
 int main(int argc, char const *argv[])
 {
-    char *str = "1  2 3  4 5  6";
+    char str[] = "    12 34  45 67 78 qwe 12 131      ";
 
     repalce_blank(str);
-    printf("str = %s\n", str);
+    printf("str =%s\n", str);
 
     return 0;
 }
 
-int repalce_blank(char *src)
+void my_print(char *str)
+{
+    int i = 0;
+
+}
+int repalce_blank(char src[])
 {
     char needDel = 0;
     char *pQuick = NULL;
@@ -32,7 +37,8 @@ int repalce_blank(char *src)
         {
             if (needDel)
             {
-                memcpy(pSlow, pQuick, strlen(pQuick));
+                strcpy(pSlow, pQuick);
+                pQuick = pSlow;
             }
 
             pQuick++;
@@ -56,10 +62,8 @@ int repalce_blank(char *src)
 
     if (needDel)
     {
-        memcpy(pSlow, pQuick, strlen(pQuick));
+        strcpy(pSlow, pQuick);
     }
-    
-    *(pQuick+1) = '\0';
 
     return 1;
 }
