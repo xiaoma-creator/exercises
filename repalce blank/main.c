@@ -5,35 +5,47 @@
 #include <stdlib.h>
 
 int repalce_blank(char *src);
-void my_print(char *str);
 
-int main(int argc, char const *argv[])
+/* 删除字符串中多余的空格，使不会出现连续的空格 */
+void delete_multi_spaces(char str[])
 {
-    char str[] = "";
-
-    repalce_blank(str);
-    printf("str =%s\n", str);
-    my_print(str);
-
-    return 0;
-}
-
-void my_print(char *str)
-{
+    int is_first_space = 1;
     int i = 0;
-    int len = strlen(str);
+    int j = 0;
 
-    for (i = 0; i < strlen(str); i++)
+    assert(NULL != str);
+
+    while (str[i] != '\0')
     {
         if (str[i] == ' ')
         {
-            str[i] = '.';
+            if (is_first_space)
+            {
+                is_first_space = 0;
+                str[j++] = str[i]; 
+            }
+        }
+        else
+        {
+            str[j++] = str[i];
+            is_first_space = 1;
         }
 
-        putchar(str[i]);
+        i++;
     }
-    
-    putchar('\n');
+
+    str[j] = '\0';
+}
+
+int main(int argc, char const *argv[])
+{
+    char str[] = "   12 45       97  */ 8888     ";
+    // char str[] = "";
+
+    delete_multi_spaces(str);
+    printf("str ='%s'\n", str);
+
+    return 0;
 }
 
 /* 删除字符串中多余的空格，使不会出现连续的空格 */
